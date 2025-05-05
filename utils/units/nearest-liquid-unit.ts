@@ -1,4 +1,15 @@
-type LiquidUnits = "l" | "dl" | "cl" | "ml";
+const factors = [
+	// factor array order impacts the first found factor
+	{ unit: "l", multiple: 1 },
+	{ unit: "dl", multiple: 1e-1 },
+	{ unit: "cl", multiple: 1e-2 },
+	{ unit: "ml", multiple: 1e-3 },
+] as const;
+
+// todo: implement all multiples
+// https://en.wikipedia.org/wiki/Litre#SI_prefixes_applied_to_the_litre
+
+type LiquidUnits = typeof factors[number]["unit"];
 
 export function nearestLiquidUnit(
 	volume: number,
@@ -11,16 +22,6 @@ export function nearestLiquidUnit(
 	unit: LiquidUnits;
 	volume: number;
 } {
-	// https://en.wikipedia.org/wiki/Litre#SI_prefixes_applied_to_the_litre
-
-	// factor array order impacts the first found factor
-	const factors: Array<{ unit: LiquidUnits; multiple: number }> = [
-		{ unit: "l", multiple: 1 },
-		{ unit: "dl", multiple: 1e-1 },
-		{ unit: "cl", multiple: 1e-2 },
-		{ unit: "ml", multiple: 1e-3 },
-	];
-
 	// todo: precision float fixer - aka take lowest/highest factor so there are no floats
 	const currentFactor = factors.find((factor) => factor.unit === unit);
 
