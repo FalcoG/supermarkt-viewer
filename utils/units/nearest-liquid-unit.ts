@@ -3,7 +3,10 @@ type LiquidUnits = "l" | "dl" | "cl" | "ml";
 export function nearestLiquidUnit(
 	volume: number,
 	unit: string,
-	whitelist?: Array<LiquidUnits>,
+	options: {
+		whitelist?: Array<LiquidUnits>;
+		blacklist?: Array<LiquidUnits>;
+	} = {},
 ): {
 	unit: LiquidUnits;
 	volume: number;
@@ -33,8 +36,12 @@ export function nearestLiquidUnit(
 	);
 
 	const relevantFactor = factors.filter((factor) => {
-		if (whitelist) {
-			return whitelist.includes(
+		if (options.whitelist) {
+			return options.whitelist.includes(
+				factor.unit,
+			);
+		} else if (options.blacklist) {
+			return !options.blacklist.includes(
 				factor.unit,
 			);
 		} else {
