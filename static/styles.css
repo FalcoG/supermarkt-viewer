@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+table .logo svg {
+    max-width: 3em;
+    max-height: 2em;
+}
