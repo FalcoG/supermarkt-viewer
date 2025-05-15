@@ -1,6 +1,4 @@
 @import "tailwindcss";
 
-table .logo svg {
-    max-width: 3em;
-    max-height: 2em;
+@theme {
 }

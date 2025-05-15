@@ -166,11 +166,13 @@ export function ProductResults({ search }: ProductResultsProps) {
 												{item.n}
 											</a>
 										</td>
-										<td className="text-emerald-500">
+										<td className="text-emerald-500
+										" /* todo: calculate cheapest, and ~50% percentile, and then colour gradient it based on the best value */>
 											{relativePrice}
 										</td>
 										<td
 											title={`Origineel: ${item.s}`}
+											className="font-mono text-sm"
 										>
 											{readableVolume}
 										</td>
