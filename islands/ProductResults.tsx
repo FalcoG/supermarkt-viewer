@@ -28,6 +28,8 @@ const items = (([] as SupermarketProducts).concat(...getSupermarketData()))
 		const isMass = unit.unit &&
 			["kg", "g"].includes(unit.unit);
 
+		let humaneUnit: ReturnType<typeof normalizeUnit> | undefined;
+
 		if (
 			isLiquid && !Number.isNaN(unit.volume)
 		) {
@@ -38,6 +40,13 @@ const items = (([] as SupermarketProducts).concat(...getSupermarketData()))
 					whitelist: ["l"],
 				},
 			);
+
+			humaneUnit = {
+				quantity: unit.quantity,
+				...nearestLiquidUnit(unit.volume, unit.unit as LiquidUnits, {
+					whitelist: ["ml", "l"],
+				}),
+			};
 		}
 
 		if (
@@ -50,11 +59,18 @@ const items = (([] as SupermarketProducts).concat(...getSupermarketData()))
 					whitelist: ["kg"],
 				},
 			);
+			humaneUnit = {
+				quantity: unit.quantity,
+				...nearestMassUnit(unit.volume, unit.unit as MassUnits, {
+					whitelist: ["g", "kg"],
+				}),
+			};
 		}
 
 		return {
-			unit: unit,
+			unit: humaneUnit || unit,
 			...item,
+			priceByUnit: output,
 			priceByVolume: output && item.p / output.volume,
 		};
 	})
@@ -63,6 +79,7 @@ const items = (([] as SupermarketProducts).concat(...getSupermarketData()))
 		if (firstItem.priceByVolume && secondItem.priceByVolume) {
 			return firstItem.priceByVolume - secondItem.priceByVolume;
 		}
+		// todo: sorting by price is OK but when we search for "aardbeien" it will not show the most relevant products on top - find a solution for this!
 
 		if (!firstItem.priceByVolume && secondItem.priceByVolume) {
 			return 1;
@@ -101,23 +118,36 @@ export function ProductResults({ search }: ProductResultsProps) {
 						<tr>
 							<td>Winkel</td>
 							<td>Naam</td>
+							<td>
+								Prijs per volume
+							</td>
 							<td>Inhoud</td>
 							<td>Prijs</td>
-							<td>Inhoud</td>
-							<td>
-								Prijs per kg/liter
-							</td>
 						</tr>
 					</thead>
 					<tbody>
 						{visibleResults
 							.map((item) => {
-								const relativePrice = item.priceByVolume
-									? new Intl.NumberFormat(
-										"nl-NL",
-										{ style: "currency", currency: "EUR" },
-									).format(item.priceByVolume)
+								const relativePrice = (item.priceByVolume && item.priceByUnit)
+									? `${
+										new Intl.NumberFormat(
+											"nl-NL",
+											{ style: "currency", currency: "EUR" },
+										).format(item.priceByVolume)
+									} / ${item.priceByUnit.unit}`
 									: "-";
+
+								const readableVolume = item.unit.volume && item.unit.unit
+									? (
+										<>
+											{item.unit.quantity !== 1 && `${item.unit.quantity} x `}
+											{new Intl.NumberFormat("nl-NL").format(
+												item.unit.volume,
+											)}&nbsp;{item.unit.unit}
+										</>
+									)
+									: item.s;
+
 								return (
 									<tr>
 										<td className={`logo ${item.supermarket_id}`}>
@@ -136,19 +166,19 @@ export function ProductResults({ search }: ProductResultsProps) {
 												{item.n}
 											</a>
 										</td>
-										<td>{item.s}</td>
+										<td className="text-emerald-500">
+											{relativePrice}
+										</td>
+										<td
+											title={`Origineel: ${item.s}`}
+										>
+											{readableVolume}
+										</td>
 										<td>
 											{new Intl.NumberFormat(
 												"nl-NL",
 												{ style: "currency", currency: "EUR" },
 											).format(item.p)}
-										</td>
-										<td title={`Origineel: ${item.s}`}>
-											{item.unit.quantity !== 1 && `${item.unit.quantity} x `}
-											{item.unit.volume}&nbsp;{item.unit.unit}
-										</td>
-										<td>
-											{relativePrice}
 										</td>
 									</tr>
 								);
