@@ -4,7 +4,7 @@ export function nearestByDynamicFactors<
 	T extends GenericStandardUnits,
 >(
 	factors: T,
-	value: number,
+	volume: number,
 	unit: T[number]["unit"],
 	options: {
 		whitelist?: Array<T[number]["unit"]>;
@@ -18,15 +18,10 @@ export function nearestByDynamicFactors<
 		throw new Error(`The unit "${unit}" is not implemented.`);
 	}
 
-	const baseline = ((value * floatFixPrecision) * currentFactor.multiple) /
+	const baseline = ((volume * floatFixPrecision) * currentFactor.multiple) /
 		floatFixPrecision;
 
-	console.log(
-		"baseline",
-		baseline,
-	);
-
-	const relevantFactor = factors.filter((factor) => {
+	const allowedFactors = factors.filter((factor) => {
 		if (options.whitelist) {
 			return options.whitelist.includes(
 				factor.unit,
@@ -38,16 +33,19 @@ export function nearestByDynamicFactors<
 		} else {
 			return true;
 		}
-	}).find((factor) => {
-		const convertedValue = baseline / factor.multiple;
-
-		if (convertedValue >= 1) return true;
 	});
+
+	const relevantFactor = allowedFactors.find((factor) => {
+		const convertedValue = Math.abs(baseline) / factor.multiple;
+
+		// breaks if input value is less than 1 with smallest unit
+		if (convertedValue >= 1) return true;
+	}) || allowedFactors[0]; // todo: fall back to lowest available factor
 
 	if (relevantFactor) {
 		return {
 			unit: relevantFactor.unit,
-			value: ((baseline * floatFixPrecision) / relevantFactor.multiple) /
+			volume: ((baseline * floatFixPrecision) / relevantFactor.multiple) /
 				floatFixPrecision,
 		};
 	} else {

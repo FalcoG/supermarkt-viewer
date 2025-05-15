@@ -4,11 +4,11 @@ export type GenericStandardUnits = Readonly<
 
 export type GenericStandardReturn<T> = {
 	unit: T;
-	value: number;
+	volume: number;
 };
 
 export type GenericStandardFunction<T> = (
-	value: number,
+	volume: number,
 	unit: T,
 	options?: {
 		whitelist?: Array<T>;

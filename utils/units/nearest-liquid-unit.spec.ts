@@ -4,17 +4,17 @@ import { nearestLiquidUnit } from "./nearest-liquid-unit.ts";
 Deno.test("nearestLiquidUnit", () => {
 	assertEquals(nearestLiquidUnit(1000, "ml"), {
 		unit: "l",
-		value: 1,
+		volume: 1,
 	});
 
 	assertEquals(nearestLiquidUnit(3000, "ml"), {
 		unit: "l",
-		value: 3,
+		volume: 3,
 	});
 
 	assertEquals(nearestLiquidUnit(0.33, "l"), {
 		unit: "dl",
-		value: 3.3,
+		volume: 3.3,
 	});
 
 	// whitelist test
@@ -24,29 +24,53 @@ Deno.test("nearestLiquidUnit", () => {
 		}),
 		{
 			unit: "ml",
-			value: 330,
+			volume: 330,
+		},
+	);
+	assertEquals(
+		nearestLiquidUnit(0.75, "l", {
+			whitelist: ["l"],
+		}),
+		{
+			unit: "l",
+			volume: 0.75,
 		},
 	);
 
 	// whitelist test
 	assertEquals(nearestLiquidUnit(1100, "ml", { whitelist: ["l", "ml"] }), {
 		unit: "l",
-		value: 1.1,
+		volume: 1.1,
+	});
+
+	assertEquals(nearestLiquidUnit(0.75, "l", { whitelist: ["ml"] }), {
+		unit: "ml",
+		volume: 750,
 	});
 
 	// blacklist test
 	assertEquals(nearestLiquidUnit(1.1, "l", { blacklist: ["l"] }), {
 		unit: "dl",
-		value: 11,
+		volume: 11,
 	});
 
 	assertEquals(nearestLiquidUnit(330, "cl"), {
 		unit: "l",
-		value: 3.3,
+		volume: 3.3,
+	});
+
+	assertEquals(nearestLiquidUnit(-330, "cl"), {
+		unit: "l",
+		volume: -3.3,
+	});
+
+	assertEquals(nearestLiquidUnit(1, "l"), {
+		unit: "l",
+		volume: 1,
 	});
 
 	// assertEquals(nearestLiquidUnit(30, "ml"), {
 	// 	unit: "l",
-	// 	value: 1,
+	// 	volume: 1,
 	// });
 });

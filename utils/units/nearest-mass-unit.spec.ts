@@ -4,12 +4,17 @@ import { nearestMassUnit } from "./nearest-mass-unit.ts";
 Deno.test("nearestMassUnit", () => {
 	assertEquals(nearestMassUnit(1000, "g"), {
 		unit: "kg",
-		value: 1,
+		volume: 1,
 	});
 
 	assertEquals(nearestMassUnit(900, "g"), {
 		unit: "hg",
-		value: 9,
+		volume: 9,
+	});
+
+	assertEquals(nearestMassUnit(-900, "g"), {
+		unit: "hg",
+		volume: -9,
 	});
 
 	assertEquals(
@@ -18,7 +23,7 @@ Deno.test("nearestMassUnit", () => {
 		}),
 		{
 			unit: "g",
-			value: 900,
+			volume: 900,
 		},
 	);
 });

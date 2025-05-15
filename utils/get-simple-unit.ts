@@ -1,4 +1,5 @@
 import { getUnitFromString } from "./get-unit-from-string.ts";
+import { normalizeUnit } from "./normalize-unit.ts";
 
 export type TSimpleUnit = {
 	unit: "liter" | "kilogram" | string; // https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_proposed_out.html#sec-issanctionedsimpleunitidentifier
@@ -17,7 +18,7 @@ export function getSimpleUnit(input: string): TSimpleUnit {
 
 		const [left, right] = input.split("x");
 		quantity = parseInt(left);
-		console.log("left", left, "right", right);
+		// console.log("left", left, "right", right);
 		itemVolumeRaw = right;
 	} else {
 		itemVolumeRaw = input;
@@ -25,6 +26,12 @@ export function getSimpleUnit(input: string): TSimpleUnit {
 	}
 
 	const { unit, volume } = getUnitFromString(itemVolumeRaw);
+	// console.log(
+	// 	input,
+	// 	"=>",
+	// 	normalizeUnit(itemVolumeRaw),
+	// );
+	normalizeUnit(itemVolumeRaw);
 
 	return {
 		unit,
