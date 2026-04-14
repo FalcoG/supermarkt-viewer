@@ -13,7 +13,8 @@ export function ProductSearch({ search }: ProductSearchProps) {
 					type="text"
 					placeholder="Zoeken... bijv: Pindakaas"
 					onInput={(e) => {
-						if (e.target instanceof HTMLInputElement) search.value = e.target.value
+						if (e.target instanceof HTMLInputElement) {search.value =
+								e.target.value;}
 					}}
 					value={search}
 				/>

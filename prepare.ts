@@ -1,6 +1,6 @@
 // tasks to be executed before Deno server starts
 import { getSupermarketsScrape } from "./tasks/get-supermarkets-scrape.ts";
-import { getSupermarketLogos } from "./tasks/get-supermarket-logos.ts";
+// import { getSupermarketLogos } from "./tasks/get-supermarket-logos.ts";
 
 export async function prepare() {
 	try {
@@ -12,8 +12,8 @@ export async function prepare() {
 		await Deno.mkdir("data");
 	}
 
-	// await getSupermarketsScrape();
-	await getSupermarketLogos();
+	await getSupermarketsScrape();
+	// await getSupermarketLogos();
 
 	console.log("prepare OK");
 }

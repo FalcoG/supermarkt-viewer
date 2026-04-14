@@ -1,4 +1,4 @@
-import uFuzzy from "npm:@leeoniya/ufuzzy";
+import uFuzzy from "@leeoniya/ufuzzy";
 import type { Signal } from "@preact/signals";
 import { createProductUrl } from "../utils/create-product-url.ts";
 import {
@@ -99,7 +99,7 @@ const uf = new uFuzzy({});
 const haystack = items.map((r) => `${r.n}`); // build a haystack from a complex object
 
 export function ProductResults({ search }: ProductResultsProps) {
-	const [idxs, info, order] = uf.search(haystack, search.value, 1, 1e3);
+	const [idxs] = uf.search(haystack, search.value, 1, 1e3);
 
 	const result = idxs && idxs.map((i) => items[i]) || items;
 	const visibleResults = result.slice(0, 100);
