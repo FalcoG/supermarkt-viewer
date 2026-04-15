@@ -26,11 +26,12 @@ export function getSimpleUnit(input: string): TSimpleUnit {
 	}
 
 	const { unit, volume } = getUnitFromString(itemVolumeRaw);
-	// console.log(
-	// 	input,
-	// 	"=>",
-	// 	normalizeUnit(itemVolumeRaw),
-	// );
+	console.log(
+		input,
+		"=>",
+		normalizeUnit(itemVolumeRaw),
+		unit
+	);
 	normalizeUnit(itemVolumeRaw);
 
 	return {

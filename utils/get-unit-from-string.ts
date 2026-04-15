@@ -54,7 +54,8 @@ export function getUnitFromString(input: string): TUnitFromString {
 		input.endsWith("cl") ||
 		input.endsWith("cl.") ||
 		input.endsWith("сl") || // Cyrillic Small Letter Es
-		input.endsWith("ctl")
+		input.endsWith("ctl") ||
+		input.endsWith("centiliter")
 	) {
 		// assume we wont have 1000+ cl items
 		input = input.replace(",", ".");
@@ -65,7 +66,7 @@ export function getUnitFromString(input: string): TUnitFromString {
 	}
 
 	if (
-		input.endsWith("l") || // be cautious, "l" is quite fuzzy - only do it at last!
+		/[\d\s]l$/.test(input) || // ends with [numeral][any space/no space]["l"]
 		input.endsWith("l.") ||
 		input.endsWith("liter")
 	) {
