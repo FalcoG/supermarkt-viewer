@@ -12,7 +12,7 @@ export function UserPreferences() {
 			<div class="-ml-1">
 				{stores.map((store) => {
 					return (
-						<label class="bg-gray-50 p-2 m-1 inline-block">
+						<label class="bg-gray-50 dark:bg-gray-700 p-2 m-1 inline-block rounded">
 							<input
 								type="checkbox"
 								name={`supermarket-name-${store.supermarket_id}`}
