@@ -2,7 +2,7 @@
 import uFuzzy from "@leeoniya/ufuzzy";
 
 import {
-	getSupermarketData,
+	getSupermarketProducts,
 	SupermarketProducts,
 } from "../utils/get-supermarket-data.ts";
 import { normalizeUnit } from "../utils/normalize-unit.ts";
@@ -11,12 +11,14 @@ import { LiquidUnits } from "../utils/units/factors/liquid.ts";
 import { nearestMassUnit } from "../utils/units/nearest-mass-unit.ts";
 import { MassUnits } from "../utils/units/factors/mass.ts";
 import { useCallback, useMemo } from "preact/hooks";
+import { userPreferenceSupermarkets } from "../signals/userPreferences.ts";
 
 export function useSupermarketProducts() {
-	// const supermarketStoreFilter = ['dirk', 'ah', 'lidl']
-
 	const [haystack, uf, items] = useMemo(() => {
-		const items = (([] as SupermarketProducts).concat(...getSupermarketData()))
+		const items = (([] as SupermarketProducts).concat(
+			...getSupermarketProducts(userPreferenceSupermarkets.value),
+		))
+			// const items = [getSupermarketProducts()
 			.map((item) => {
 				const unit = normalizeUnit(item.s);
 
@@ -98,7 +100,7 @@ export function useSupermarketProducts() {
 		const haystack = items.map((r) => `${r.n}`); // build a haystack from a complex object
 
 		return [haystack, uf, items];
-	}, []);
+	}, [userPreferenceSupermarkets.value]);
 
 	const queryProducts = useCallback((query: string) => {
 		const [idxs] = uf.search(haystack, query, 1, 1_000);

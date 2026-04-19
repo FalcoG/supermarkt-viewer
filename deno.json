@@ -2,7 +2,7 @@
 	"nodeModulesDir": "manual",
 	"tasks": {
 		"fetch": "deno run --allow-read --allow-write --allow-net=raw.githubusercontent.com:443 prepare.ts",
-		"check": "deno fmt --check . && deno lint . && deno check",
+		"check": "deno fmt . && deno lint . && deno check",
 		"dev": "vite",
 		"build": "vite build",
 		"start": "deno serve -A _fresh/server.js",

@@ -14,17 +14,6 @@ export type SupermarketProduct = {
 
 export type SupermarketProducts = Array<SupermarketProduct>;
 
-const supermarketItems = supermarkets.map((supermarket) => {
-	return supermarket.d.map((product) => {
-		return {
-			supermarket: supermarket.c,
-			supermarket_id: supermarket.n,
-			// icon: supermarket.i,
-			...product,
-		};
-	});
-});
-
 export function getSupermarketCompanies(): Array<Supermarket> {
 	return supermarkets.map((supermarket) => {
 		return {
@@ -34,6 +23,25 @@ export function getSupermarketCompanies(): Array<Supermarket> {
 	});
 }
 
-export function getSupermarketData() {
-	return supermarketItems;
+export function getSupermarketProducts(
+	whitelist: Array<string> = [],
+) {
+	return supermarkets
+		.filter((supermarket) => {
+			// show all if whitelist empty
+			if (whitelist.length === 0) return true;
+
+			// filter out companies by (user) preference
+			return whitelist.includes(supermarket.n);
+		})
+		.map((supermarket) => {
+			return supermarket.d.map((product) => {
+				return {
+					supermarket: supermarket.c,
+					supermarket_id: supermarket.n,
+					// icon: supermarket.i,
+					...product,
+				};
+			});
+		});
 }

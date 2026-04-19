@@ -1,7 +1,6 @@
 import { useSignal } from "@preact/signals";
 import { ProductSearch } from "../islands/ProductSearch.tsx";
 import { ProductResults } from "../islands/ProductResults.tsx";
-import { UserPreferencesProvider } from "../contexts/UserPreferences.tsx";
 import { UserPreferences } from "../islands/UserPreferences.tsx";
 
 export default function Home() {
@@ -14,11 +13,9 @@ export default function Home() {
 
 				<p className="my-4">Zoek een product en vergelijk</p>
 
-				<UserPreferencesProvider>
-					<UserPreferences />
-					<ProductSearch search={search} />
-					<ProductResults search={search} />
-				</UserPreferencesProvider>
+				<UserPreferences />
+				<ProductSearch search={search} />
+				<ProductResults search={search} />
 			</div>
 		</div>
 	);

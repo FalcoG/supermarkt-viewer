@@ -1,6 +1,6 @@
 import { PageProps } from "fresh";
 import {
-	getSupermarketData,
+	getSupermarketProducts,
 	SupermarketProducts,
 } from "../../utils/get-supermarket-data.ts";
 import { normalizeUnit } from "../../utils/normalize-unit.ts";
@@ -10,15 +10,16 @@ import { MassUnits } from "../../utils/units/factors/mass.ts";
 import { nearestMassUnit } from "../../utils/units/nearest-mass-unit.ts";
 
 export default function UnitConversion(_props: PageProps) {
-	const items = (([] as SupermarketProducts).concat(...getSupermarketData()))
-		.map((item) => {
-			const unit = normalizeUnit(item.s);
+	const items =
+		(([] as SupermarketProducts).concat(...getSupermarketProducts()))
+			.map((item) => {
+				const unit = normalizeUnit(item.s);
 
-			return {
-				unit: unit,
-				...item,
-			};
-		});
+				return {
+					unit: unit,
+					...item,
+				};
+			});
 
 	return (
 		<div>
