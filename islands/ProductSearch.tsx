@@ -9,6 +9,7 @@ export function ProductSearch({ search }: ProductSearchProps) {
 		<div class="flex gap-8 py-6">
 			<form action="">
 				<input
+					autofocus
 					class="px-2 py-1 border-gray-500 border-2 rounded bg-white dark:bg-black hover:border-gray-800 dark:hover:border-gray-400"
 					type="text"
 					placeholder="Zoeken... bijv: Pindakaas"

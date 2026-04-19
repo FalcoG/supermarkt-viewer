@@ -11,6 +11,16 @@ export function ProductResults({ search }: ProductResultsProps) {
 	const results = queryProducts(search.value);
 	const visibleResults = results.slice(0, 100);
 
+	if (!search.value) {
+		return (
+			<div className="flex py-6 gap-6 flex-col">
+				<p className="text-xl tabular-nums">
+					Er zijn {results.length} producten beschikbaar om te doorzoeken
+				</p>
+			</div>
+		);
+	}
+
 	return (
 		<div class="flex py-6 gap-6 flex-col">
 			<div>

@@ -7,11 +7,11 @@ function getSavedPreferences(key: string) {
 	const storageValues = localStorage.getItem(key);
 
 	try {
-		if (!storageValues) return null
+		if (!storageValues) return null;
 
-		return JSON.parse(storageValues)
+		return JSON.parse(storageValues);
 	} catch {
-		return null
+		return null;
 	}
 }
 
@@ -20,10 +20,13 @@ const defaultValues = getSupermarketCompanies().map((supermarket) =>
 );
 
 export const userPreferenceSupermarkets = signal<Array<string>>(
-	getSavedPreferences(storageKeySupermarkets) || defaultValues
+	getSavedPreferences(storageKeySupermarkets) || defaultValues,
 );
 
 effect(() => {
 	// triggered on every value change
-	localStorage.setItem(storageKeySupermarkets, JSON.stringify(userPreferenceSupermarkets.value))
+	localStorage.setItem(
+		storageKeySupermarkets,
+		JSON.stringify(userPreferenceSupermarkets.value),
+	);
 });
