@@ -11,7 +11,7 @@ export type SupermarketProduct = {
 	l: string;
 	p: number;
 	s: string;
-} & Supermarket;
+} & Pick<Supermarket, "supermarket" | "supermarket_id">;
 
 export type SupermarketProducts = Array<SupermarketProduct>;
 
