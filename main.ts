@@ -5,3 +5,5 @@ export const app = new App()
 	.use(staticFiles())
 	// Enable file-system based routing
 	.fsRoutes();
+
+app.all("/api/health", () => new Response("ok"));

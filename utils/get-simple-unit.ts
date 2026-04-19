@@ -30,7 +30,7 @@ export function getSimpleUnit(input: string): TSimpleUnit {
 		input,
 		"=>",
 		normalizeUnit(itemVolumeRaw),
-		unit
+		unit,
 	);
 	normalizeUnit(itemVolumeRaw);
 

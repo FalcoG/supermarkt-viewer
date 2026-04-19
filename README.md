@@ -16,5 +16,7 @@ deno task start
 This will watch the project directory and restart as necessary.
 
 ### Development
+
 ## Testing docker
-``$ docker build -t super .  && docker run -it super``
+
+`$ docker build -t super .  && docker run -it super`
