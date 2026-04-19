@@ -3,6 +3,7 @@ import supermarkets from "../data/supermarkets.json" with { type: "json" };
 export type Supermarket = {
 	supermarket: string;
 	supermarket_id: string;
+	supermarket_logo: string;
 };
 
 export type SupermarketProduct = {
@@ -19,6 +20,7 @@ export function getSupermarketCompanies(): Array<Supermarket> {
 		return {
 			supermarket: supermarket.c,
 			supermarket_id: supermarket.n,
+			supermarket_logo: supermarket.i,
 		};
 	});
 }

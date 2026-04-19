@@ -7,11 +7,12 @@ export function UserPreferences() {
 
 	return (
 		<form action="">
-			Resultaten van:
+			Producten tonen van:
 
+			<div class="-ml-1">
 			{stores.map((store) => {
 				return (
-					<label>
+					<label class="bg-gray-50 p-2 m-1 inline-block">
 						<input
 							type="checkbox"
 							name={`supermarket-name-${store.supermarket_id}`}
@@ -39,10 +40,12 @@ export function UserPreferences() {
 								}
 							}}
 						/>{" "}
-						{store.supermarket}
+						<img src={store.supermarket_logo} width='32px' class="inline" alt={store.supermarket} />
 					</label>
 				);
+
 			})}
+			</div>
 		</form>
 	);
 }

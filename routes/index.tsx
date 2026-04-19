@@ -13,8 +13,8 @@ export default function Home() {
 
 				<p className="my-4">Zoek een product en vergelijk</p>
 
-				<UserPreferences />
 				<ProductSearch search={search} />
+				<UserPreferences />
 				<ProductResults search={search} />
 			</div>
 		</div>
