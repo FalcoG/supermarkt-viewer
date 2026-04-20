@@ -5,7 +5,7 @@
 		"check": "deno fmt . && deno lint . && deno check",
 		"lint": "deno task check",
 		"dev": "vite",
-		"build": "vite build",
+		"build": "deno task fetch && vite build",
 		"start": "deno serve -A _fresh/server.js",
 		"update": "deno run -A -r jsr:@fresh/update ."
 	},
