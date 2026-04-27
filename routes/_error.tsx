@@ -11,22 +11,19 @@ export default function ErrorPage(props: PageProps) {
 			return (
 				<>
 					<Head>
-						<title>404 - Page not found</title>
+						<title>Pagina niet gevonden</title>
 					</Head>
-					<div class="px-4 py-8 mx-auto bg-[#86efac]">
-						<div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
-							<img
-								class="my-6"
-								src="/logo.svg"
-								width="128"
-								height="128"
-								alt="the Fresh logo: a sliced lemon dripping with juice"
-							/>
-							<h1 class="text-4xl font-bold">404 - Page not found</h1>
-							<p class="my-4">
-								The page you were looking for doesn't exist.
+					<div className="px-4 py-8 mx-auto">
+						<div className="max-w-screen-md mx-auto flex flex-col justify-center">
+							<p className="text-md font-bold text-emerald-600">
+								🛒Super Prijzen
 							</p>
-							<a href="/" class="underline">Go back home</a>
+
+							<h1 className="text-3xl my-4">Pagina niet gevonden</h1>
+
+							<a href="/" className="underline">
+								Naar de homepage
+							</a>
 						</div>
 					</div>
 				</>

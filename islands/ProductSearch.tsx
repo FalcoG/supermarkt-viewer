@@ -7,15 +7,17 @@ interface ProductSearchProps {
 export function ProductSearch({ search }: ProductSearchProps) {
 	return (
 		<div class="flex gap-8 py-6">
-			<form action="">
+			<form action="" method="GET">
 				<input
 					autofocus
 					class="px-2 py-1 border-gray-500 border-2 rounded bg-white dark:bg-black hover:border-gray-800 dark:hover:border-gray-400"
 					type="text"
+					name="q"
 					placeholder="Zoeken... bijv: Pindakaas"
 					onInput={(e) => {
-						if (e.target instanceof HTMLInputElement) {search.value =
-								e.target.value;}
+						if (e.target instanceof HTMLInputElement) {
+							search.value = e.target.value;
+						}
 					}}
 					value={search}
 				/>

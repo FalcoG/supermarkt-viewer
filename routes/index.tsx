@@ -2,9 +2,11 @@ import { useSignal } from "@preact/signals";
 import { ProductSearch } from "../islands/ProductSearch.tsx";
 import { ProductResults } from "../islands/ProductResults.tsx";
 import { UserPreferences } from "../islands/UserPreferences.tsx";
+import { PageProps } from "fresh";
 
-export default function Home() {
-	const search = useSignal("");
+export default function Home(props: PageProps) {
+	// restore search query from url if form was unnecessarily submitted by user
+	const search = useSignal(props.url.searchParams.get("q")?.toString() || "");
 
 	return (
 		<div class="px-4 py-8 mx-auto">

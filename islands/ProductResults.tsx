@@ -78,6 +78,8 @@ export function ProductResults({ search }: ProductResultsProps) {
 												href={`${
 													createProductUrl(item.l, item.supermarket_id)
 												}`}
+												target="_blank"
+												rel="noopener noreferrer"
 											>
 												{item.n}
 											</a>
