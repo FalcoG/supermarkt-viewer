@@ -5,8 +5,14 @@
 		"check": "deno fmt . && deno lint . && deno check",
 		"lint": "deno task check",
 		"dev": "vite",
-		"build": "deno task fetch && vite build",
-		"start": "deno serve -A _fresh/server.js",
+		"build": {
+			"command": "vite build",
+			"dependencies": ["fetch"]
+		},
+		"start": {
+			"command": "deno serve -A _fresh/server.js",
+			"dependencies": ["build"]
+		},
 		"update": "deno run -A -r jsr:@fresh/update ."
 	},
 	"lint": {

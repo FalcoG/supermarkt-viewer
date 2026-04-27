@@ -5,8 +5,6 @@ COPY . .
 
 # Install dependencies
 RUN deno install
-RUN deno task fetch
-RUN deno task build
 
 # Production stage
 FROM denoland/deno:latest
