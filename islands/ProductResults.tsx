@@ -66,12 +66,14 @@ export function ProductResults({ search }: ProductResultsProps) {
 
 								return (
 									<tr>
-										<td className={`logo ${item.supermarket_id}`}>
-											{item.supermarket}
-											{/*<SupermarketStylizedName*/}
-											{/*	supermarketId={item.supermarket_id}*/}
-											{/*	supermarketName={item.supermarket}*/}
-											{/*/>*/}
+										<td>
+											<img
+												src={`/supermarket-logos/${item.supermarket_id}.svg`}
+												alt={item.supermarket}
+												title={item.supermarket}
+												height="24px"
+												width="24px"
+											/>
 										</td>
 										<td>
 											<a
