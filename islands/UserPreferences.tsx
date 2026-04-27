@@ -47,6 +47,7 @@ export function UserPreferences() {
 								width="32px"
 								height="32px"
 								class="inline"
+								title={store.supermarket}
 								alt={store.supermarket}
 							/>
 						</label>
